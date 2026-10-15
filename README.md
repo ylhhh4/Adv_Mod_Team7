@@ -37,3 +37,17 @@ Execute the simulation by running the `main.py` script:
 
 ```bash
 python main.py
+```
+
+## Outputs
+Upon completion, the simulation will automatically create a new timestamped directory (e.g., run_YYYY.MM.DD_HH.MM/). Inside this folder, you will find an Excel file (.xlsx) containing multiple sheets:
+
+Stock: Inventory levels across different nodes.
+
+Flows: Movements of RTIs between nodes.
+
+Backorders: Unfulfilled orders over time.
+
+Orders: A complete log of all generated order lines.
+
+
