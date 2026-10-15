@@ -18,18 +18,32 @@ The project has been refactored into a modular structure for better maintainabil
 * **`main.py`**
   The entry point of the application. It initializes the `SimulationConfig`, runs the time-step loop, displays a progress bar in the console, and triggers the final data export upon completion.
 
-## Prerequisites
+### Prerequisites
 
-It is recommended to use **Anaconda** or **Miniconda** to manage the virtual environment.
+This project requires **Python 3.10**. You can manage the virtual environment and dependencies using either Conda or standard Python tools.
+
+**Option 1: Using Conda (Recommended)**
+Create and activate the environment directly from the provided configuration file:
 
 ```bash
-# Create and activate a new Conda environment
-conda create -n clsc_sim python=3.10
-conda activate clsc_sim
+# Create the environment from the yml file
+conda env create -f environment.yml
+
+# Activate the environment
+conda activate clsc_sim_env
+```
+Option 2: Using pip
+If you prefer pip, ensure you have Python 3.10 installed, create a virtual environment, and install the dependencies:
+
+# Create a virtual environment
+python -m venv venv
+
+# Activate it (Windows)
+.\venv\Scripts\activate
+# Or on macOS/Linux: source venv/bin/activate
 
 # Install required dependencies
-pip install mesa pandas openpyxl
-```
+pip install -r requirements.txt
 
 ## How to Run
 
