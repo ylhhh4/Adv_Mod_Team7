@@ -29,6 +29,7 @@ conda activate clsc_sim
 
 # Install required dependencies
 pip install mesa pandas openpyxl
+```
 
 ## How to Run
 
