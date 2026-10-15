@@ -34,7 +34,7 @@ conda activate clsc_sim_env
 ```
 
 **Option 2: Using pip**
-If you prefer pip, ensure you have Python 3.10 installed, create a virtual environment, and install the dependencies:
+If you prefer pip, ensure you have Python 3.12 installed, create a virtual environment, and install the dependencies:
 
 ```bash
 # Create a virtual environment
