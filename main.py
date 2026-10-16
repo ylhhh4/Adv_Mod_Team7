@@ -11,10 +11,10 @@ if __name__ == "__main__":
     run_folder = f"run_{current_timestamp}"
     os.makedirs(run_folder, exist_ok=True)
     
-    # 实例化模型
+    # Instantiate the model
     model = CLSC_Model(config=config, results_dir=run_folder, run_timestamp=current_timestamp)
     
-    # 运行模拟循环
+    # Run the simulation loop
     for i in range(config.SIMULATION_STEPS):
         model.step()
         progress_pct = ((i+1) / config.SIMULATION_STEPS) * 100
