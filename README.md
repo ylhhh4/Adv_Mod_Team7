@@ -20,7 +20,7 @@ The project has been refactored into a modular structure for better maintainabil
 
 ### Prerequisites
 
-This project requires **Python 3.10**. You can manage the virtual environment and dependencies using either Conda or standard Python tools.
+This project requires **Python 3.12**. You can manage the virtual environment and dependencies using either Conda or standard Python tools.
 
 **Option 1: Using Conda (Recommended)**
 Create and activate the environment directly from the provided configuration file:
