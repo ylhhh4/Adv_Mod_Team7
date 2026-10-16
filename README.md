@@ -18,6 +18,9 @@ The project has been refactored into a modular structure for better maintainabil
 * **`main.py`**
   The entry point of the application. It initializes the `SimulationConfig`, runs the time-step loop, displays a progress bar in the console, and triggers the final data export upon completion.
 
+* **`Assignment_code_baseline.py`**
+  This file is the original monolithic Python script provided by the professor. While it served as our starting baseline before we divided the code into the four modules above, it is kept in the repository solely for reference and historical comparison. We will not directly execute or use this file in our current modular workflow.
+
 ### Prerequisites
 
 This project requires **Python 3.12**. You can manage the virtual environment and dependencies using either Conda or standard Python tools.
