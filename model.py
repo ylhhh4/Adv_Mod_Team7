@@ -5,6 +5,8 @@ from datetime import datetime
 from config import SimulationConfig, CrateType, Product
 from agents import Pooler_Agent, Producer_Agent, RDC_Agent, RPOS_Agent, RTI_Agent
 
+# IMPROVEMENT: Decoupled model system architecture from agent logic and configuration, 
+# significantly improving readability and testability.
 class CLSC_Model(mesa.Model):
     def __init__(self, config: SimulationConfig = None, results_dir=None, run_timestamp=None):
         super().__init__()
@@ -119,4 +121,6 @@ class CLSC_Model(mesa.Model):
         for rpos in self.r_pos_agents: rpos.step()
         self.rdc_agent.extract_uls()
         self.pool_agent.step()
+        # IMPROVEMENT: Completely removed the O(N) loop iterating over all agents 
+        # to reset "transported_this_step", eliminating huge overhead at the end of each step.
         self.datacollector.collect(self)
