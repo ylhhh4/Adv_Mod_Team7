@@ -3,6 +3,8 @@ from datetime import datetime
 from config import SimulationConfig
 from model import CLSC_Model
 
+# IMPROVEMENT: Created a clean execution entry point. 
+# This prevents the simulation from running automatically when modules are imported elsewhere.
 if __name__ == "__main__":
     print("\nSimulation starting...\n")
     
