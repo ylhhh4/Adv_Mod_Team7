@@ -121,11 +121,11 @@ class RTI_Agent(mesa.Agent):
         
         self.rti_id = str(uuid.uuid4())
         self.crate_type = crate_type
-        self.product = None
-        self.is_filled = False
+        self.product = product
+        self.is_filled = is_filled
         self.under_processing = False
-        self.washed = True
-        self.location = LocationType.POOL
+        self.washed = washed
+        self.location = location
         self.arrival_time_at_node = 0
         self.detention_time = 0
         self.broken = False
@@ -785,6 +785,7 @@ class CLSC_Model(mesa.Model):
         
         # 5
         self.rdc_agent.extract_uls()
+        self.rdc_agent.step()
         
         # 6
         self.pool_agent.step()
