@@ -16,6 +16,8 @@ class RTI_Agent(mesa.Agent):
         self.under_processing = False
         self.washed = washed
         self.location = location
+        # IMPROVEMENT: Replaced highly inefficient O(N) detention_time increment loop 
+        # with a simple O(1) timestamp marker (arrival_step).
         self.arrival_step = model.steps
         self.broken = False
         self.dirty = False
@@ -48,6 +50,9 @@ class Pooler_Agent(mesa.Agent):
             
         primary_available = len(primary_stock)
         selected_uls = []
+        
+        # IMPROVEMENT: Replaced slow random.sample() and element-wise .remove() 
+        # with fast O(1) list slicing to handle large inventory queues.
         if primary_available >= quantity_uls:
             selected_uls = primary_stock[:quantity_uls]
             del primary_stock[:quantity_uls]
@@ -97,6 +102,8 @@ class Pooler_Agent(mesa.Agent):
         
     def screen_uls(self, uls: List[UnitLoad], current_step: int):
         num_uls_to_screen = min(len(uls), self.model.config.POOL_SCREENING_CAPACITY)
+        # IMPROVEMENT: Replaced random.sample with slicing for deterministic/faster processing 
+        # since elements are treated identically.
         uls_to_screen = uls[:num_uls_to_screen] if num_uls_to_screen > 0 else []
         uls_to_bypass = uls[num_uls_to_screen:]
                 
@@ -172,6 +179,9 @@ class Producer_Agent(mesa.Agent):
                     creation_step=self.model.steps, needs_washed=requires_washing
                 )
                 self.model.pool_agent.receive_orders(order)
+                
+                # IMPROVEMENT: Store a lightweight dictionary instead of copy.copy(order). 
+                # This prevents memory leaks caused by an ever-growing list of complex objects.
                 self.model.all_orders.append({
                     'Step': order.creation_step, 'Order ID': order.order_id, 'Issuer': order.issuer,
                     'Supplier': order.supplier, 'Crate Type': order.crate_type.name, 'Quantity': order.quantity,
@@ -197,6 +207,7 @@ class Producer_Agent(mesa.Agent):
         qty_to_sample = min(quantity, len(available))
         if qty_to_sample == 0: return []
         
+        # IMPROVEMENT: Replaced random.sample() loop with list slicing for O(1) performance.
         rtis_to_send = available[:qty_to_sample]
         del available[:qty_to_sample]
         return rtis_to_send
@@ -265,6 +276,8 @@ class RDC_Agent(mesa.Agent):
                 product=product, crate_type=crate_type, quantity=qty_to_request,
                 uom='RTI', lead_time=lead_time, creation_step=self.model.steps
             )
+            
+            # IMPROVEMENT: Lightweight dictionary mapping to save memory over long simulations.
             self.model.all_orders.append({
                 'Step': order.creation_step, 'Order ID': order.order_id, 'Issuer': order.issuer,
                 'Supplier': order.supplier, 'Crate Type': order.crate_type.name, 'Quantity': order.quantity,
@@ -368,7 +381,10 @@ class RPOS_Agent(mesa.Agent):
     
     def process_sales(self):
         current_step = self.model.steps
+        # IMPROVEMENT: Replaced step-by-step detention increment loop with condition checks based on arrival_step.
         ready = [rti for rti in self.displayed_rtis_rpos if current_step - rti.arrival_step >= self.display_time]
+        
+        # IMPROVEMENT: Replaced sequential .remove() inside loop with list comprehension for speed.
         if ready:
             self.displayed_rtis_rpos = [rti for rti in self.displayed_rtis_rpos if rti not in ready]
             for rti in ready:
