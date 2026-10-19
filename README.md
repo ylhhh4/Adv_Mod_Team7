@@ -69,5 +69,3 @@ Upon completion, the simulation will automatically create a new timestamped dire
 - **Backorders**: Unfulfilled orders over time.
 
 - **Orders**: A complete log of all generated order lines.
-
-
