@@ -3,6 +3,8 @@ from enum import Enum
 from typing import List, Dict, Optional
 from dataclasses import dataclass, field
 
+# IMPROVEMENT: Encapsulated all scattered global variables into a centralized SimulationConfig dataclass. 
+# This allows for easy parameter sweeps and multi-scenario testing without modifying the source code.
 @dataclass
 class SimulationConfig:
     SIMULATION_STEPS: int = 365
