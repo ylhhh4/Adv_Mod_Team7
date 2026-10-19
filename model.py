@@ -120,6 +120,7 @@ class CLSC_Model(mesa.Model):
         self.rdc_agent.dispatch_rtis()
         for rpos in self.r_pos_agents: rpos.step()
         self.rdc_agent.extract_uls()
+        self.rdc_agent.step()
         self.pool_agent.step()
         # IMPROVEMENT: Completely removed the O(N) loop iterating over all agents 
         # to reset "transported_this_step", eliminating huge overhead at the end of each step.
